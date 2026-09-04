@@ -1,0 +1,124 @@
+name: Homebrew CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  arm64:
+    name: macOS arm64
+    runs-on: macos-15
+    steps:
+      - name: Log brew version
+        run: brew --version
+
+      - name: Tap and verify tap resolution
+        run: |
+          brew tap Papa2Carlro/dtj
+          brew tap-info Papa2Carlro/dtj
+
+      - name: Check formula style
+        run: brew style Formula/dtj.rb
+
+      - name: Audit formula (strict)
+        run: brew audit --strict Formula/dtj.rb
+
+      - name: Verify not pre-installed
+        run: |
+          if brew list --formula dtj 2>/dev/null; then
+            echo "ERROR: dtj already installed"
+            exit 1
+          fi
+
+      - name: Install formula from tap
+        run: brew install Papa2Carlro/dtj/dtj
+
+      - name: Verify dtj binary exists
+        run: command -v dtj
+
+      - name: Verify dtj-agent binary exists
+        run: command -v dtj-agent
+
+      - name: Check dtj version
+        run: dtj --version
+
+      - name: Check dtj-agent version
+        run: dtj-agent --version
+
+      - name: Run brew test
+        run: brew test Papa2Carlro/dtj/dtj
+
+      - name: Check brew info
+        run: brew info Papa2Carlro/dtj/dtj
+
+      - name: Verify dtj binary architecture
+        run: file "$(command -v dtj)"
+
+      - name: Verify dtj-agent binary architecture
+        run: file "$(command -v dtj-agent)"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          brew uninstall dtj 2>/dev/null || true
+          brew untap Papa2Carlro/dtj 2>/dev/null || true
+
+  x86_64:
+    name: macOS x86_64
+    runs-on: macos-26-intel
+    steps:
+      - name: Log brew version
+        run: brew --version
+
+      - name: Tap and verify tap resolution
+        run: |
+          brew tap Papa2Carlro/dtj
+          brew tap-info Papa2Carlro/dtj
+
+      - name: Check formula style
+        run: brew style Formula/dtj.rb
+
+      - name: Audit formula (strict)
+        run: brew audit --strict Formula/dtj.rb
+
+      - name: Verify not pre-installed
+        run: |
+          if brew list --formula dtj 2>/dev/null; then
+            echo "ERROR: dtj already installed"
+            exit 1
+          fi
+
+      - name: Install formula from tap
+        run: brew install Papa2Carlro/dtj/dtj
+
+      - name: Verify dtj binary exists
+        run: command -v dtj
+
+      - name: Verify dtj-agent binary exists
+        run: command -v dtj-agent
+
+      - name: Check dtj version
+        run: dtj --version
+
+      - name: Check dtj-agent version
+        run: dtj-agent --version
+
+      - name: Run brew test
+        run: brew test Papa2Carlro/dtj/dtj
+
+      - name: Check brew info
+        run: brew info Papa2Carlro/dtj/dtj
+
+      - name: Verify dtj binary architecture
+        run: file "$(command -v dtj)"
+
+      - name: Verify dtj-agent binary architecture
+        run: file "$(command -v dtj-agent)"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          brew uninstall dtj 2>/dev/null || true
+          brew untap Papa2Carlro/dtj 2>/dev/null || true
