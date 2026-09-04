@@ -23,10 +23,10 @@ jobs:
           brew tap-info Papa2Carlro/dtj
 
       - name: Check formula style
-        run: brew style --formula Formula/dtj.rb
+        run: brew style --formula dtj
 
       - name: Audit formula (strict)
-        run: brew audit --strict --formula Formula/dtj.rb
+        run: brew audit --strict dtj
 
       - name: Verify not pre-installed
         run: |
@@ -84,10 +84,10 @@ jobs:
           brew tap-info Papa2Carlro/dtj
 
       - name: Check formula style
-        run: brew style --formula Formula/dtj.rb
+        run: brew style --formula dtj
 
       - name: Audit formula (strict)
-        run: brew audit --strict --formula Formula/dtj.rb
+        run: brew audit --strict dtj
 
       - name: Verify not pre-installed
         run: |
