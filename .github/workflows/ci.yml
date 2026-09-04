@@ -11,6 +11,9 @@ jobs:
     name: macOS arm64
     runs-on: macos-15
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Log brew version
         run: brew --version
 
@@ -20,10 +23,10 @@ jobs:
           brew tap-info Papa2Carlro/dtj
 
       - name: Check formula style
-        run: brew style --global Formula/dtj.rb
+        run: brew style --formula Formula/dtj.rb
 
       - name: Audit formula (strict)
-        run: brew audit --strict --global Formula/dtj.rb
+        run: brew audit --strict --formula Formula/dtj.rb
 
       - name: Verify not pre-installed
         run: |
@@ -69,6 +72,9 @@ jobs:
     name: macOS x86_64
     runs-on: macos-26-intel
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Log brew version
         run: brew --version
 
@@ -78,10 +84,10 @@ jobs:
           brew tap-info Papa2Carlro/dtj
 
       - name: Check formula style
-        run: brew style --global Formula/dtj.rb
+        run: brew style --formula Formula/dtj.rb
 
       - name: Audit formula (strict)
-        run: brew audit --strict --global Formula/dtj.rb
+        run: brew audit --strict --formula Formula/dtj.rb
 
       - name: Verify not pre-installed
         run: |
