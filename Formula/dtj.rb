@@ -5,8 +5,8 @@
 class Dtj < Formula
   desc "Data transfer job runner — dtj + dtj-agent"
   homepage "https://github.com/Papa2Carlro/dtj"
-  version "0.1.1"
-  license "MIT OR Apache-2.0"
+  license "MIT"
+  license "Apache-2.0"
 
   on_macos do
     on_arm do
